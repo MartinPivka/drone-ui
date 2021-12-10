@@ -1,12 +1,12 @@
 <template>
-  <section :class="{ stage: true, 'has-steps': hasSteps, 'has-content': hasContent}">
+  <section :class="{ stage: true, 'has-steps': hasSteps, 'has-content': hasContent }">
     <header>
-      <Status :status="stage.status"/>
+      <Status :status="stage.status" />
       <span :title="stage.name">{{ stage.name }}</span>
       <time-elapsed v-if="stage.started" :started="stage.started" :stopped="stage.stopped">
         <Hint position="top" align="right" showOn="hover">Full stage duration</Hint>
       </time-elapsed>
-      <IconArrowDropdown v-if="hasSteps" direction="down" class="arrow-dropdown"/>
+      <IconArrowDropdown v-if="hasSteps" direction="down" class="arrow-dropdown" />
     </header>
 
     <div class="content">
@@ -48,9 +48,9 @@ export default {
 
 .stage {
   background: #ffffff;
-  box-shadow: 0 2px 4px 0 rgba($color-text, 0.1);
+  // box-shadow: 0 2px 4px 0 rgba($color-text, 0.1);
   border: 1px solid rgba($color-text, 0.1);
-  border-radius: 4px;
+  border-radius: 8px;
   box-sizing: border-box;
   user-select: none;
 

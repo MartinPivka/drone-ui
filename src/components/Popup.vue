@@ -1,11 +1,10 @@
 <template>
   <Modal v-if="asModal" :className="`popup${evict ? ' evict' : ''}`">
-    <slot/>
+    <slot />
   </Modal>
 
-  <div v-else :style="style"
-       :class="{ [`position-${position}`]: true, [`align-${align}`]: true, popup: true, evict }">
-    <slot/>
+  <div v-else :style="style" :class="{ [`position-${position}`]: true, [`align-${align}`]: true, popup: true, evict }">
+    <slot />
   </div>
 </template>
 
@@ -82,7 +81,8 @@ export default {
   display: none;
 }
 .repo-link.hover-type-box-shadow:hover .repo-item {
-  box-shadow: 0 4px 10px 0 rgba(25, 45, 70, 0.25);
+  background-color: #fafafa;
+  // box-shadow: 0 4px 10px 0 rgba(25, 45, 70, 0.25);
 }
 .repo-link .repo-item h3 {
   color: #0564d7;

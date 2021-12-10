@@ -1,8 +1,10 @@
 <template>
-  <router-link class="repo-link"
-               :to="to"
-               :class="{ [`hover-type-${hoverType}`]: true, 'repo-active': repo.active }"
-               :tabindex="focusable ? 0 : -1">
+  <router-link
+    class="repo-link"
+    :to="to"
+    :class="{ [`hover-type-${hoverType}`]: true, 'repo-active': repo.active }"
+    :tabindex="focusable ? 0 : -1"
+  >
     <slot></slot>
   </router-link>
 </template>
@@ -40,7 +42,7 @@ export default {
 
 .repo-link.hover-type-box-shadow:focus .repo-item,
 .repo-link.hover-type-box-shadow:hover .repo-item {
-  box-shadow: 0 4px 10px 0 rgba($color-text, 0.2);
+  // box-shadow: 0 4px 10px 0 rgba($color-text, 0.2);
 }
 
 .repo-link .repo-item.active-yes .header .title {

@@ -1,45 +1,50 @@
 <template>
-  <section class="repo-item"
-           :class="{ [`build-${build ? 'yes' : 'no'}`]: true, [`active-${active ? 'yes' : 'no'}`]: true }">
+  <section
+    class="repo-item"
+    :class="{ [`build-${build ? 'yes' : 'no'}`]: true, [`active-${active ? 'yes' : 'no'}`]: true }"
+  >
     <div class="container-left">
       <template v-if="status">
-        <Status :status="status"/>
+        <Status :status="status" />
         <div class="connector"></div>
       </template>
 
-      <IconRepository v-else class="icon-repository"/>
+      <IconRepository v-else class="icon-repository" />
     </div>
 
     <div class="content">
       <div class="header" :title="title">
         <span class="title">
           <span class="number" v-if="number">#{{ number }}. </span>
-          <span>{{ title.split('\n')[0] }}</span>
+          <span>{{ title.split("\n")[0] }}</span>
         </span>
 
-        <Button outline borderless
-                v-if="!active && $store.state.mediaType !== 'mobile'"
-                theme="primary"
-                type="button"
-                tabindex="-1">
+        <Button
+          outline
+          borderless
+          v-if="!active && $store.state.mediaType !== 'mobile'"
+          theme="primary"
+          type="button"
+          tabindex="-1"
+        >
           Activate
         </Button>
       </div>
 
       <div v-if="build" class="build">
-        <img :src="avatar" alt="avatar"/>
+        <img :src="avatar" alt="avatar" />
         <div class="description">
-          <span>{{author}}</span>
-          <span> {{action}} </span>
-          <RepoItemLabel type="actionTarget" :build="build" :repo="linkRepo" :link="!!linkRepo"/>
-          <RepoItemLabel class="to" type="to" :build="build" :repo="linkRepo" :link="!!linkRepo" prefix=" to "/>
+          <span>{{ author }}</span>
+          <span> {{ action }} </span>
+          <RepoItemLabel type="actionTarget" :build="build" :repo="linkRepo" :link="!!linkRepo" />
+          <RepoItemLabel class="to" type="to" :build="build" :repo="linkRepo" :link="!!linkRepo" prefix=" to " />
           <span class="commit-message" v-if="build.message" :title="build.message"> — {{ build.message }}</span>
         </div>
 
         <div class="time">
           <div v-if="showElapsedTime" class="time-elapsed">
             <Hint showOn="hover" align="center" position="bottom">Build duration</Hint>
-            <TimeElapsed :started="build.started" :stopped="build.finished"/>
+            <TimeElapsed :started="build.started" :stopped="build.finished" />
           </div>
           <span v-if="showElapsedTime && build.created" class="dot"></span>
           <span v-if="build.created" class="time-started">
@@ -114,9 +119,9 @@ export default {
 @import "../assets/styles/mixins";
 
 .repo-item {
-  border-radius: 4px;
+  border-radius: 8px;
   box-sizing: border-box;
-  box-shadow: 0 2px 4px 0 rgba($color-text, 0.1);
+  // box-shadow: 0 2px 4px 0 rgba($color-text, 0.1);
   border: solid 1px $border-color;
   background-color: #ffffff;
   color: $color-text;
