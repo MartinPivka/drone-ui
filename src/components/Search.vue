@@ -1,23 +1,23 @@
 <template>
-  <BaseForm :class="{ [`opened-${opened ? 'yes' : 'no'}`]: true , search: true }"
-            @submit.native="(e) => e.preventDefault()"
-            @focusin.native="open"
-            @focusout.native="closeDelayed">
-    <BaseInput type="search"
-               ref="searchInput"
-               v-model="query"
-               :placeholder="placeholder"
-               @input="onInput"/>
+  <BaseForm
+    :class="{ [`opened-${opened ? 'yes' : 'no'}`]: true, search: true }"
+    @submit.native="e => e.preventDefault()"
+    @focusin.native="open"
+    @focusout.native="closeDelayed"
+  >
+    <BaseInput type="search" ref="searchInput" v-model="query" :placeholder="placeholder" @input="onInput" />
     <div class="icon">/</div>
 
-    <ReposPopup v-if="popupOpened"
-                emptyText="Repositories not found"
-                :repos="results"
-                :loaded="loaded"
-                :popupProps="{position: 'bottom', align: 'both'}"
-                @itemSelect="onItemSelect"/>
+    <ReposPopup
+      v-if="popupOpened"
+      emptyText="Repositories not found"
+      :repos="results"
+      :loaded="loaded"
+      :popupProps="{ position: 'bottom', align: 'both' }"
+      @itemSelect="onItemSelect"
+    />
 
-    <Overlay ref="overlay" :opened="opened"/>
+    <Overlay ref="overlay" :opened="opened" />
   </BaseForm>
 </template>
 
@@ -52,8 +52,13 @@ export default {
     };
   },
   computed: {
+    filteredRepos() {
+      return this.isRoot
+        ? this.$store.state.latest
+        : Object.values(this.$store.state.latest).filter(item => item.active === true);
+    },
     results() {
-      const repos = Object.values(this.$store.state.latest);
+      const repos = Object.values(this.filteredRepos);
       return reposSort(reposSearch(repos, this.queryTrimmed)).slice(0, ITEMS_LIMIT);
     },
     loaded() {
@@ -64,6 +69,9 @@ export default {
     },
     popupOpened() {
       return this.queryTrimmed && this.opened;
+    },
+    isRoot() {
+      return this.$store.state.user.data.admin;
     }
   },
   methods: {

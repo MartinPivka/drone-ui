@@ -1,12 +1,11 @@
 <template>
-  <div class="user-menu"
-       :class="{ clicked }"
-       @click="toggle"
-       v-click-outside="close">
-    <img class='avatar' :src="user.avatar" alt="avatar"/>
+  <div class="user-menu" :class="{ clicked }" @click="toggle" v-click-outside="close">
+    <img class="avatar" :src="user.avatar" alt="avatar" />
 
     <Popup :position="'bottom'" :align="'right'" :evict="!this.opened">
-      <router-link to="/account" @focus.native="open" @blur.native="closeDelayed">User settings</router-link>
+      <router-link v-if="isRoot" to="/account" @focus.native="open" @blur.native="closeDelayed"
+        >User settings</router-link
+      >
       <a href="/logout" class="logout" @focus="open" @blur="closeDelayed">
         {{ $t("labels.logout") }}
       </a>
@@ -31,6 +30,11 @@ export default {
       nextOpened: false,
       clicked: false
     };
+  },
+  computed: {
+    isRoot() {
+      return this.$store.state.user.data.admin;
+    }
   },
   methods: {
     toggle() {

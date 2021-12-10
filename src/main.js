@@ -9,7 +9,7 @@ import { messages, resolve } from "./locales";
 import router from "./router/router";
 import store from "./store";
 import { sync } from "vuex-router-sync";
-import { authorizer, defaultParams } from "./router/gates";
+import { authorizer, accesser, defaultParams } from "./router/gates";
 import { fetcher } from "./router/fetch";
 
 Vue.use(VueMoment);
@@ -30,6 +30,7 @@ const i18n = new VueI18n({
 // configure routing.
 router.beforeEach(defaultParams);
 router.beforeEach(authorizer(store, window));
+router.beforeEach(accesser(store, window));
 router.beforeEach(fetcher(store));
 
 // dispatch requests to subscribe to the global event

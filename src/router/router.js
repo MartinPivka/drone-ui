@@ -12,6 +12,7 @@ import Repo from "../views/Repo.vue";
 import Settings from "../views/Settings.vue";
 import Search from "../views/Search.vue";
 import BuildsFeed from "../views/BuildsFeed.vue";
+import NoAccess from "../views/NoAccess.vue";
 
 export default new Router({
   mode: "history",
@@ -33,6 +34,11 @@ export default new Router({
       component: Logout
     },
     {
+      path: "/no-access",
+      name: "no-access",
+      component: NoAccess
+    },
+    {
       path: "/",
       component: Main,
       children: [
@@ -46,7 +52,7 @@ export default new Router({
           path: "/account",
           name: "account",
           component: Account,
-          meta: { requiresAuth: true }
+          meta: { requiresAuth: true, onlyRoot: true }
         },
         {
           path: "/search",
@@ -73,7 +79,7 @@ export default new Router({
               path: "settings",
               name: "settings",
               component: Settings,
-              meta: { requiresAuth: true }
+              meta: { requiresAuth: true, onlyRoot: true }
             },
             {
               path: ":build/:stage/:step",

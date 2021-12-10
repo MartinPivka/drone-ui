@@ -1,10 +1,10 @@
 <template>
   <div class="page-search">
     <BaseForm class="form">
-      <BaseInput ref="input" type="search" placeholder="Search repositories or jump to …" v-model="query"/>
+      <BaseInput ref="input" type="search" placeholder="Search repositories or jump to …" v-model="query" />
     </BaseForm>
 
-    <RepoList v-if="queryTrimmed" :items="results" emptyMessage="Repositories not found."/>
+    <RepoList v-if="queryTrimmed" :items="results" emptyMessage="Repositories not found." />
   </div>
 </template>
 
@@ -30,11 +30,19 @@ export default {
   },
   computed: {
     results() {
-      const repos = Object.values(this.$store.state.latest);
+      const repos = Object.values(this.filteredRepos);
       return reposSort(reposSearch(repos, this.queryTrimmed));
+    },
+    filteredRepos() {
+      return this.isRoot
+        ? this.$store.state.latest
+        : Object.values(this.$store.state.latest).filter(item => item.active === true);
     },
     queryTrimmed() {
       return this.query.trim();
+    },
+    isRoot() {
+      return this.$store.state.user.data.admin;
     }
   },
   mounted() {

@@ -35,3 +35,15 @@ export const authorizer = (store, window) => (to, from, next) => {
     next();
   }
 };
+
+export const accesser = (store, window) => (to, from, next) => {
+  // allow access only to specific routes
+  const isRoot = store.state.user.data.admin;
+  if (to.meta && to.meta.onlyRoot && !isRoot) {
+    // no access if not root
+    next("/no-access");
+  } else {
+    // proceed to the next guard.
+    next();
+  }
+};

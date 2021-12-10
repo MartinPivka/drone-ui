@@ -7,18 +7,20 @@
 
       <div>
         <Button @click.native="sync" outline :class="{ syncing }">
-          <span>{{ syncing ? "Syncing" : "Sync"}}</span>
-          <IconSync/>
+          <span>{{ syncing ? "Syncing" : "Sync" }}</span>
+          <IconSync />
         </Button>
       </div>
     </PageHeader>
 
-    <AlertError :error="loadingError || syncingError"/>
-    <RepoList v-if="!loadingError"
-              :items="sortLimit(latest)"
-              emptyMessage="Your repository list is empty."
-              :loading="showLoading"
-              :repoToProps="repoToProps"/>
+    <AlertError :error="loadingError || syncingError" />
+    <RepoList
+      v-if="!loadingError"
+      :items="sortLimit(latest)"
+      emptyMessage="Your repository list is empty."
+      :loading="showLoading"
+      :repoToProps="repoToProps"
+    />
 
     <MoreButton v-if="showMore" @click.native="showAll">Show all repositories</MoreButton>
   </div>
@@ -57,7 +59,9 @@ export default {
   },
   computed: {
     latest() {
-      return this.$store.state.latest;
+      return this.isRoot
+        ? this.$store.state.latest
+        : Object.values(this.$store.state.latest).filter(item => item.active === true);
     },
     loadingStatus() {
       return this.$store.state.latestStatus;
@@ -82,6 +86,11 @@ export default {
     },
     mediaType() {
       return this.$store.state.mediaType;
+    },
+
+    // access
+    isRoot() {
+      return this.$store.state.user.data.admin;
     }
   },
   methods: {

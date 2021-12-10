@@ -18,7 +18,8 @@ $color-info: #96a5be;
 
 $border-color: rgba($color-text, 0.05);
 
-$header-color: rgba($color-text, 0.97);
+// $header-color: rgba($color-text, 0.97);
+$header-color: rgba(black, 0.96);
 $header-height: 56px;
 $header-padding-side: 15px;
 
@@ -29,5 +30,4 @@ $terminal-color: $color-text;
 
 $button-outline-hover-bg-opacity: 0.1;
 
-$step-selected-bg-color: rgba($color-text, 0.03)
-
+$step-selected-bg-color: rgba($color-text, 0.03);
